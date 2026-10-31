@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
     Github,
@@ -9,43 +10,26 @@ import {
     ArrowUpRight,
     Play,
     Zap,
-    Smartphone
+    Smartphone,
+    BookOpen
 } from "lucide-react";
+import ProjectStoryDrawer from "./ProjectStoryDrawer";
 
 const projectsData = [
     {
         id: "ecommerce-system",
         title: "Online Store Platform",
-        tagline: "Fast checkout, instant cart updates, and hassle-free shopping.",
         category: "ONLINE STORE",
         icon: ShoppingCart,
         accentColor: "from-purple-500 to-indigo-500",
         badgeColor: "border-purple-500/40 text-purple-400 bg-purple-500/10",
-        stack: [
-            { name: "PHP & Laravel", role: "Store Engine & Secure Accounts" },
-            { name: "React", role: "Instant Cart & Interactive Catalog" },
-            { name: "MySQL", role: "Reliable Product & Order Database" },
-            { name: "Tailwind CSS", role: "Mobile-Friendly Design" },
-        ],
-        description:
-            "A complete online shopping platform designed for speed and ease of use. Shoppers can search products with instant results, add items to their cart with zero lag, and check out securely. The system automatically tracks stock levels in real time so customers never purchase an item that just went out of stock.",
+        tagline: "High-speed storefront with real-time stock sync and instant checkout.",
+        stack: ["PHP & Laravel", "React", "MySQL", "Tailwind CSS"],
         highlights: [
-            {
-                label: "Instant Shopping Cart",
-                detail: "Add items and watch totals and taxes calculate right away without slow page reloads."
-            },
-            {
-                label: "Safe & Secure Accounts",
-                detail: "Keeps customer logins, passwords, and purchase history protected and easy to manage."
-            },
-            {
-                label: "Smart Stock Tracking",
-                detail: "Automatically updates item counts the second an order is placed, preventing overselling."
-            },
-            {
-                label: "Mobile-First Shopping",
-                detail: "Designed and tested to feel as smooth and natural on a phone as it does on a desktop."
-            }
+            "Instant Reactive Cart",
+            "Real-Time Stock Locks",
+            "Safe Customer Auth",
+            "Mobile-First Design"
         ],
         sourceUrl: "https://github.com/iamjothees",
         liveUrl: null, // Hidden since no standalone live demo URL is deployed yet
@@ -54,36 +38,17 @@ const projectsData = [
     {
         id: "food-ordering-app",
         title: "Food Ordering & Delivery App",
-        tagline: "Order hot meals and track delivery straight to your doorstep.",
         category: "ORDERING APP",
         icon: Utensils,
         accentColor: "from-orange-500 to-red-500",
         badgeColor: "border-orange-500/40 text-orange-400 bg-orange-500/10",
-        stack: [
-            { name: "React", role: "Easy Mobile Menu & Checkout" },
-            { name: "Laravel", role: "Kitchen Dispatch & Order Manager" },
-            { name: "MySQL", role: "Live Order Records" },
-            { name: "Tailwind CSS", role: "App-like Interface" },
-        ],
-        description:
-            "Built for hungry customers and busy kitchens. Browse food menus with appetizing photos, customize meals (extra cheese, no onions, combo options), and watch your order update in real time from the chef's pan to the delivery scooter on the road.",
+        tagline: "Live kitchen dispatch and meal tracking from chef's pan to your door.",
+        stack: ["React", "Laravel", "MySQL", "Tailwind CSS"],
         highlights: [
-            {
-                label: "Live Order Status",
-                detail: "Follow along as your meal moves from kitchen prep to rider pickup and arrival at your door."
-            },
-            {
-                label: "Easy Meal Customizer",
-                detail: "Choose portion sizes, toppings, and special cooking notes with simple, clear taps."
-            },
-            {
-                label: "Rush-Hour Ready",
-                detail: "Handles hundreds of orders during lunch or dinner rush without slowing down or duplicating tickets."
-            },
-            {
-                label: "Fast Reordering",
-                detail: "Saves delivery addresses and past orders so dinner can be reordered in two taps."
-            }
+            "Live Scooter & Order Tracking",
+            "Instant Meal Customizer",
+            "Rush-Hour Load Handling",
+            "2-Tap Quick Reordering"
         ],
         sourceUrl: "https://github.com/iamjothees",
         liveUrl: null, // Hidden since no standalone live demo URL is deployed yet
@@ -92,43 +57,48 @@ const projectsData = [
     {
         id: "qwik-preview",
         title: "Qwik Preview",
-        tagline: "1-Click tool to preview web projects on your real phone.",
         category: "PRODUCTIVITY TOOL",
         icon: Smartphone,
         accentColor: "from-cyan-400 to-blue-500",
         badgeColor: "border-cyan-500/40 text-cyan-400 bg-cyan-500/10",
-        stack: [
-            { name: "Web Tool", role: "1-Click Phone Mirror" },
-            { name: "Stay-Awake Mode", role: "Keeps Phone Display On" },
-            { name: "Docker", role: "Easy 1-Command Setup" },
-        ],
-        description:
-            "A tool I built to solve an everyday headache: testing how a new website looks on an actual phone. Instead of typing long numbers or scanning codes over and over, one click on the laptop screen immediately opens the page on a phone sitting on the desk.",
+        tagline: "1-Click tool to preview localhost on a docked phone with zero typing.",
+        stack: ["Chrome Extension", "Node.js Relay", "PWA Receiver", "Docker"],
         highlights: [
-            {
-                label: "1-Click Phone Mirror",
-                detail: "Click once on your computer and the page opens immediately on your phone."
-            },
-            {
-                label: "Screen Stays Awake",
-                detail: "Keeps your phone screen turned on while you work so it doesn't constantly lock or go dark."
-            },
-            {
-                label: "Zero Manual Typing",
-                detail: "Eliminates having to email links to yourself or type awkward IP numbers into mobile browsers."
-            },
-            {
-                label: "Instant Live Updates",
-                detail: "Change a color or layout on your laptop and see it on your phone in a flash."
-            }
+            "< 50ms Push Latency",
+            "24/7 Screen Stay-Awake",
+            "Zero Manual IP Typing",
+            "100% Local LAN Speed"
         ],
         sourceUrl: "https://github.com/iamjothees/qwik-mobile-preview",
         liveUrl: "https://qwik-preview.joecodes.in/", // Real live demo!
-        previewBadge: "Live Web Tool Available"
+        previewBadge: "Live Web Tool Available",
+        story: {
+            badge: "The 2-Hour Fix",
+            readTime: "1 min read",
+            headline: "I Was Tired of Touching My Phone 50 Times a Day. So I Killed the Routine.",
+            sections: [
+                {
+                    heading: "The Dumb Daily Routine",
+                    body: "Every single night, I found myself doing the exact same tedious dance: pick up phone, unlock, squint at my laptop to find my computer's IP address, type twelve numbers on a tiny glass keyboard, and hit go. Then, 40 seconds later while I was typing on my laptop, the phone screen would dim and lock itself. Over and over, 30 to 50 times a night.",
+                    callout: "Even QR code tools were annoying—you still had to stop typing, pick up the phone, line up the camera lens, and tap a popup."
+                },
+                {
+                    heading: "The 2-Hour Decision",
+                    body: "On a random weekday, while working on a project, I finally snapped. I decided to build a real, zero-touch fix right then and there within 2 hours. The dream was simple: my phone sits on a stand next to my keyboard, stays awake forever, and updates the second I press a button on my laptop. Zero touches."
+                },
+                {
+                    heading: "The Magic Moment",
+                    body: "Under two hours later, it actually worked. I hit one shortcut on my keyboard (Option+Shift+Q), and in less than the blink of an eye—50 milliseconds—my phone on the desk pops open with the exact page. Screen stays permanently on. No typing, no scanning, no reaching over.",
+                    callout: "Built in under 2 hours out of pure laziness. Released 100% free and open-source so nobody ever has to type IP addresses with their thumbs again."
+                }
+            ]
+        }
     }
 ];
 
 export default function Projects() {
+    const [activeStoryProject, setActiveStoryProject] = useState(null);
+
     return (
         <section
             id="projects"
@@ -244,44 +214,33 @@ export default function Projects() {
                                         </div>
                                     </div>
 
-                                    {/* Tools Used Pills */}
-                                    <div className="mb-6">
-                                        <p className="text-[11px] font-mono text-gray-500 uppercase tracking-wider mb-2">
-                                            Tools Used
-                                        </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.stack.map((item) => (
-                                                <span
-                                                    key={item.name}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs bg-black/60 border border-white/10 text-gray-200"
-                                                >
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
-                                                    <span className="font-semibold text-white">{item.name}</span>
-                                                    <span className="text-gray-400 text-[11px]">({item.role})</span>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Clear Description */}
-                                    <p className="text-gray-300 text-sm leading-relaxed mb-6 font-normal">
-                                        {project.description}
+                                    {/* 1-Line Punchy Pitch */}
+                                    <p className="text-gray-300 text-sm leading-snug mb-5 font-normal">
+                                        {project.tagline}
                                     </p>
 
-                                    {/* Key Features Grid */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                                        {project.highlights.map((h) => (
-                                            <div
-                                                key={h.label}
-                                                className="p-3 rounded-lg bg-black/40 border border-white/5 text-xs flex flex-col justify-between"
+                                    {/* Tech Stack Pills */}
+                                    <div className="flex flex-wrap gap-1.5 mb-5">
+                                        {project.stack.map((name) => (
+                                            <span
+                                                key={name}
+                                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs bg-black/60 border border-white/10 text-gray-200"
                                             >
-                                                <div className="flex items-center gap-1.5 text-neon-blue font-semibold mb-1">
-                                                    <CheckCircle2 size={13} className="shrink-0" />
-                                                    <span>{h.label}</span>
-                                                </div>
-                                                <p className="text-gray-300 text-[11px] leading-relaxed">
-                                                    {h.detail}
-                                                </p>
+                                                <span className="w-1.5 h-1.5 rounded-full bg-neon-green" />
+                                                <span className="font-medium text-white">{name}</span>
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {/* Key Capabilities: Glanceable Checklist */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
+                                        {project.highlights.map((label) => (
+                                            <div
+                                                key={label}
+                                                className="px-2.5 py-2 rounded-lg bg-black/40 border border-white/5 text-xs text-gray-300 flex items-center gap-2"
+                                            >
+                                                <CheckCircle2 size={13} className="text-neon-blue shrink-0" />
+                                                <span className="font-medium">{label}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -302,6 +261,18 @@ export default function Projects() {
                                                 <span>Try Live Demo</span>
                                                 <ArrowUpRight size={13} className="text-black" />
                                             </a>
+                                        )}
+
+                                        {/* Story / Behind the Build button (Only rendered if project has a story!) */}
+                                        {project.story && (
+                                            <button
+                                                type="button"
+                                                onClick={() => setActiveStoryProject(project)}
+                                                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-neon-green hover:text-white bg-neon-green/10 border border-neon-green/30 hover:bg-neon-green/20 hover:border-neon-green/60 transition-all active:scale-95 cursor-pointer group/story"
+                                            >
+                                                <BookOpen size={13} className="text-neon-green group-hover/story:scale-110 transition-transform" />
+                                                <span>{project.story.badge || "Behind the Build"}</span>
+                                            </button>
                                         )}
 
                                         {/* View Code button */}
@@ -331,6 +302,13 @@ export default function Projects() {
                     })}
                 </div>
             </div>
+
+            {/* Slide-over Drawer for Project Experiences & Stories */}
+            <ProjectStoryDrawer
+                project={activeStoryProject}
+                isOpen={!!activeStoryProject}
+                onClose={() => setActiveStoryProject(null)}
+            />
         </section>
     );
 }
